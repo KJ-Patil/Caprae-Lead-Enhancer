@@ -16,8 +16,28 @@ function initializeApp() {
     // Set up form submission
     document.getElementById('leadForm').addEventListener('submit', handleFormSubmit);
     
+    // Set up button event handlers
+    setupButtonHandlers();
+    
     // Initialize empty state
     updateLeadCount();
+}
+
+function setupButtonHandlers() {
+    // Sample data button
+    const sampleDataBtn = document.getElementById('sampleDataBtn');
+    if (sampleDataBtn) {
+        sampleDataBtn.addEventListener('click', loadSampleData);
+    }
+    
+    // Upload leads button
+    const uploadBtn = document.getElementById('uploadLeadsBtn');
+    if (uploadBtn) {
+        uploadBtn.addEventListener('click', handleCsvUpload);
+    }
+    
+    // Add file input for CSV upload
+    addCsvUploadInput();
 }
 
 // Handle form submission
@@ -442,6 +462,126 @@ function hideResults() {
 // Scroll to upload section
 function scrollToUpload() {
     document.getElementById('uploadSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Add CSV upload input
+function addCsvUploadInput() {
+    // Create hidden file input
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.csv';
+    fileInput.style.display = 'none';
+    fileInput.id = 'csvFileInput';
+    fileInput.addEventListener('change', handleCsvFileSelect);
+    
+    document.body.appendChild(fileInput);
+}
+
+// Handle CSV upload button click
+function handleCsvUpload() {
+    const fileInput = document.getElementById('csvFileInput');
+    if (fileInput) {
+        fileInput.click();
+    }
+}
+
+// Handle CSV file selection
+function handleCsvFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    if (!file.name.toLowerCase().endsWith('.csv')) {
+        showAlert('Please select a CSV file', 'warning');
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const csvData = e.target.result;
+            const csvLeads = parseCsvData(csvData);
+            
+            if (csvLeads.length === 0) {
+                showAlert('No valid leads found in CSV file', 'warning');
+                return;
+            }
+            
+            // Add leads to the list
+            csvLeads.forEach((lead, index) => {
+                lead.id = Date.now() + index;
+                leads.push(lead);
+            });
+            
+            updateLeadCount();
+            renderLeadsList();
+            updateProcessButton();
+            showAlert(`Successfully loaded ${csvLeads.length} leads from CSV`, 'success');
+            
+            // Scroll to upload section
+            scrollToUpload();
+            
+        } catch (error) {
+            console.error('Error parsing CSV:', error);
+            showAlert('Error parsing CSV file. Please check the format.', 'danger');
+        }
+    };
+    
+    reader.readAsText(file);
+}
+
+// Parse CSV data
+function parseCsvData(csvText) {
+    const lines = csvText.split('\n').filter(line => line.trim());
+    if (lines.length < 2) return [];
+    
+    // Get headers
+    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    
+    // Map common column names
+    const columnMap = {
+        'company_name': ['company_name', 'company', 'company name', 'business name'],
+        'contact_name': ['contact_name', 'contact name', 'name', 'contact', 'full name'],
+        'email': ['email', 'email address', 'e-mail'],
+        'phone': ['phone', 'phone number', 'telephone', 'mobile'],
+        'industry': ['industry', 'sector', 'business type'],
+        'company_size': ['company_size', 'company size', 'size', 'employees'],
+        'revenue': ['revenue', 'annual revenue', 'revenue range'],
+        'website': ['website', 'web', 'url', 'company website'],
+        'linkedin': ['linkedin', 'linkedin profile', 'linkedin url']
+    };
+    
+    // Find column indices
+    const columnIndices = {};
+    Object.keys(columnMap).forEach(key => {
+        const possibleNames = columnMap[key];
+        for (let i = 0; i < headers.length; i++) {
+            if (possibleNames.some(name => headers[i].toLowerCase().includes(name.toLowerCase()))) {
+                columnIndices[key] = i;
+                break;
+            }
+        }
+    });
+    
+    // Parse data rows
+    const leads = [];
+    for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+        
+        const lead = {};
+        Object.keys(columnIndices).forEach(key => {
+            const index = columnIndices[key];
+            if (index !== undefined && values[index]) {
+                lead[key] = values[index];
+            }
+        });
+        
+        // Only add if we have minimum required fields
+        if (lead.company_name && lead.contact_name && lead.email) {
+            leads.push(lead);
+        }
+    }
+    
+    return leads;
 }
 
 // Show alert message

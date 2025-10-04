@@ -1,0 +1,6 @@
+company_name,contact_name,email,phone,industry,company_size,revenue,website,linkedin
+TechCorp Solutions,John Smith,john.smith@techcorp.com,+1-555-123-4567,Technology,50-200,10M-50M,https://techcorp.com,https://linkedin.com/company/techcorp
+Global Manufacturing Inc,Sarah Johnson,sarah.j@globalmfg.com,555-987-6543,Manufacturing,500+,100M+,https://globalmfg.com,https://linkedin.com/company/global-manufacturing
+StartupXYZ,Mike Chen,mike@startupxyz.io,+1-555-456-7890,SaaS,1-10,1M-5M,https://startupxyz.io,https://linkedin.com/company/startupxyz
+DataFlow Systems,Jennifer Lee,jennifer@dataflow.com,555-234-5678,Technology,51-200,5M-10M,https://dataflow.com,https://linkedin.com/company/dataflow
+CloudTech Inc,Robert Wilson,robert@cloudtech.net,555-345-6789,Software,201-500,50M-100M,https://cloudtech.net,https://linkedin.com/company/cloudtech
