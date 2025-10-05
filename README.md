@@ -42,8 +42,6 @@ See `HOW_TO_RUN.md` for step-by-step instructions.
 - UX: clean flows, sample data, CSV upload, clear feedback
 - Communication: docs, scripts, summary, checklist
 
-## 📨 Submission
-- Follow `SUBMISSION_CHECKLIST.md` to prepare the GitHub link, video (1–2 min), and email to `Partners@capraecapital.com` with subject: `Developer Intern - Handbook Submission - [Your Name]`.
 
 ## 📝 Repository Structure
 ```
