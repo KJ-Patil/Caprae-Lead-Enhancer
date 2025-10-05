@@ -3,13 +3,6 @@
 
 A sophisticated lead generation enhancement tool built for the Caprae Capital AI-Readiness Challenge. This application provides AI-powered lead scoring, data validation, and prioritization to help sales teams maximize their conversion rates.
 
-## Contents
-- Getting started: see `HOW_TO_RUN.md`
-- Full process guide: `Caprae_Capital_AI_Readiness_Process_Guide.md`
-- Project summary: `PROJECT_SUMMARY.md`
-- Video scripts: `VIDEO_SCRIPT.md`, `VIDEO_QUICK_REFERENCE.md`
-- Button fixes/troubleshooting: `BUTTON_TROUBLESHOOTING.md`
-- Submission checklist: `SUBMISSION_CHECKLIST.md`
 
 ## 🚀 Features
 
@@ -64,12 +57,7 @@ See `HOW_TO_RUN.md` for step-by-step instructions.
 ├── sample_leads.csv
 ├── README.md
 ├── HOW_TO_RUN.md
-├── Caprae_Capital_AI_Readiness_Process_Guide.md
 ├── PROJECT_SUMMARY.md
-├── VIDEO_SCRIPT.md
-├── VIDEO_QUICK_REFERENCE.md
-├── BUTTON_TROUBLESHOOTING.md
-└── SUBMISSION_CHECKLIST.md
 ```
 
 ## 📄 License
