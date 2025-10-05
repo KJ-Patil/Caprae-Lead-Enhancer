@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+.eggs/
+
+# Virtual envs
+venv/
+.env/
+.venv/
+ENV/
+
+# OS / Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs & cache
+*.log
+.cache/
+
+# Builds
+build/
+dist/
+
+# Data & exports
+*.csv
+!sample_leads.csv
+exports/
+
+# Flask/coverage
+instance/
+.coverage
+htmlcov/
